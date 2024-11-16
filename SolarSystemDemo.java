@@ -1,6 +1,133 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class SolarSystemDemo {
+    public static void main(String[] args) {
+        // Create a simple solar system simulation
+        CelestialSimulation simulation = new CelestialSimulation();
+        Scanner sc = new Scanner(System.in);
+
+        // Prepopulate simulation with Sun and Earth
+        Star sun = new Star(
+                "Sun",
+                1.989e30, // mass in kg
+                696340, // radius in km
+                new Vector3D(0, 0, 0),
+                new Vector3D(0, 0, 0),
+                1.0, // luminosity (1 solar luminosity)
+                5778, // surface temperature in K
+                27.0, // rotation period in days
+                new Vector3D(0, 0, 1));
+
+        Planet earth = new Planet(
+                "Earth",
+                5.972e24, // mass in kg
+                6371, // radius in km
+                new Vector3D(149.6e6, 0, 0), // position (at 1 AU)
+                new Vector3D(0, 29.78, 0), // velocity in km/s
+                sun, // parent body
+                365.26, // orbital period in days
+                0.0167, // eccentricity
+                1.0, // rotation period in days
+                new Vector3D(0, 0, 1),
+                288, // surface temperature in K
+                1.0, // atmospheric pressure in atm
+                List.of("Nitrogen", "Oxygen", "Argon"),
+                true // has water
+        );
+
+        simulation.addBody(sun);
+        simulation.addBody(earth);
+
+        boolean running = true;
+        while (running) {
+            System.out.println("\n=== Solar System Simulation Menu ===");
+            System.out.println("1. Add Celestial Body");
+            System.out.println("2. Remove Celestial Body");
+            System.out.println("3. Select Celestial Body");
+            System.out.println("4. Show All Celestial Bodies");
+            System.out.println("5. Simulate Gravitational Interactions");
+            System.out.println("6. Check Habitable Planets");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1 -> addCelestialBody(simulation, sc);
+                case 2 -> removeCelestialBody(simulation, sc);
+                case 3 -> selectCelestialBody(simulation, sc);
+                case 4 -> simulation.printAllBodies();
+                case 5 -> simulation.simulateGravitationalInteractions();
+                case 6 -> simulation.printHabitablePlanets();
+                case 0 -> running = false;
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        System.out.println("Exiting the simulation. Goodbye!");
+        sc.close();
+    }
+
+    private static void addCelestialBody(CelestialSimulation simulation, Scanner sc) {
+        System.out.print("Enter the name of the celestial body: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter mass (in kg): ");
+        double mass = sc.nextDouble();
+
+        System.out.print("Enter radius (in km): ");
+        double radius = sc.nextDouble();
+
+        System.out.print("Enter position (x y z in km): ");
+        Vector3D position = new Vector3D(sc.nextDouble(), sc.nextDouble(), sc.nextDouble());
+
+        System.out.print("Enter velocity (x y z in km/s): ");
+        Vector3D velocity = new Vector3D(sc.nextDouble(), sc.nextDouble(), sc.nextDouble());
+
+        // For simplicity, assume a generic celestial body for now
+        CelestialBody newBody = new AbstractCelestialBody(name, mass, radius, position, velocity) {
+        };
+        simulation.addBody(newBody);
+
+        System.out.println("Celestial body added successfully.");
+    }
+
+    private static void removeCelestialBody(CelestialSimulation simulation, Scanner sc) {
+        System.out.print("Enter the name of the celestial body to remove: ");
+        String name = sc.nextLine();
+
+        if (simulation.removeBodyByName(name)) {
+            System.out.println("Celestial body removed successfully.");
+        } else {
+            System.out.println("Celestial body not found.");
+        }
+    }
+
+    private static void selectCelestialBody(CelestialSimulation simulation, Scanner sc) {
+        System.out.print("Enter the name of the celestial body to select: ");
+        String name = sc.nextLine();
+
+        CelestialBody body = simulation.getBodyByName(name);
+        if (body != null) {
+            System.out.println("Selected Celestial Body Details:");
+            System.out.println("Name: " + body.getName());
+            System.out.println("Mass: " + body.getMass() + " kg");
+            System.out.println("Radius: " + body.getRadius() + " km");
+            System.out.println("Position: (" + body.getPosition().getX() + ", " + body.getPosition().getY() + ", "
+                    + body.getPosition().getZ() + ")");
+            System.out.println("Velocity: (" + body.getVelocity().getX() + ", " + body.getVelocity().getY() + ", "
+                    + body.getVelocity().getZ() + ")");
+        } else {
+            System.out.println("Celestial body not found.");
+        }
+    }
+}
 
 // Core interfaces for celestial bodies
+// testing 1-2-3
 interface CelestialBody {
     String getName();
 
@@ -62,7 +189,7 @@ interface Habitable extends CelestialBody {
 
 // Helper class for 3D vector operations
 class Vector3D {
-    private double x, y, z;
+    private final double x, y, z;
 
     public Vector3D(double x, double y, double z) {
         this.x = x;
@@ -144,10 +271,10 @@ abstract class AbstractCelestialBody implements CelestialBody {
 
 // Implementation classes for different celestial bodies
 class Star extends AbstractCelestialBody implements Rotatable {
-    private double luminosity; // in solar luminosities
-    private double temperature; // in Kelvin
-    private double rotationPeriod;
-    private Vector3D axisOfRotation;
+    private final double luminosity; // in solar luminosities
+    private final double temperature; // in Kelvin
+    private final double rotationPeriod;
+    private final Vector3D axisOfRotation;
 
     public Star(String name, double mass, double radius, Vector3D position,
             Vector3D velocity, double luminosity, double temperature,
@@ -180,15 +307,15 @@ class Star extends AbstractCelestialBody implements Rotatable {
 
 class Planet extends AbstractCelestialBody
         implements Orbital, Rotatable, Habitable {
-    private CelestialBody parentStar;
-    private double orbitalPeriod;
-    private double eccentricity;
-    private double rotationPeriod;
-    private Vector3D axisOfRotation;
-    private double surfaceTemperature;
-    private double atmosphericPressure;
-    private List<String> atmosphericComposition;
-    private boolean hasWater;
+    private final CelestialBody parentStar;
+    private final double orbitalPeriod;
+    private final double eccentricity;
+    private final double rotationPeriod;
+    private final Vector3D axisOfRotation;
+    private final double surfaceTemperature;
+    private final double atmosphericPressure;
+    private final List<String> atmosphericComposition;
+    private final boolean hasWater;
 
     public Planet(String name, double mass, double radius, Vector3D position,
             Vector3D velocity, CelestialBody parentStar, double orbitalPeriod,
@@ -258,10 +385,18 @@ class Planet extends AbstractCelestialBody
 
 // Simulation class to demonstrate the system
 class CelestialSimulation {
-    private List<CelestialBody> bodies = new ArrayList<>();
+    private final List<CelestialBody> bodies = new ArrayList<>();
 
     public void addBody(CelestialBody body) {
         bodies.add(body);
+    }
+
+    public boolean removeBodyByName(String name) {
+        return bodies.removeIf(body -> body.getName().equalsIgnoreCase(name));
+    }
+
+    public CelestialBody getBodyByName(String name) {
+        return bodies.stream().filter(body -> body.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
     public void simulateGravitationalInteractions() {
@@ -285,52 +420,61 @@ class CelestialSimulation {
                 .forEach(planet -> System.out.println(
                         "Habitable planet found: " + ((CelestialBody) planet).getName()));
     }
+
+    public void printAllBodies() {
+        if (bodies.isEmpty()) {
+            System.out.println("No celestial bodies in the simulation.");
+        } else {
+            System.out.println("Celestial Bodies in the Simulation:");
+            bodies.forEach(body -> System.out.println("- " + body.getName()));
+        }
+    }
 }
 
 // Demo class
-public class SolarSystemDemo {
-    public static void main(String[] args) {
-        // Create a simple solar system simulation
-        CelestialSimulation simulation = new CelestialSimulation();
+// public class SolarSystemDemo {
+// public static void main(String[] args) {
+// // Create a simple solar system simulation
+// CelestialSimulation simulation = new CelestialSimulation();
 
-        // Create the Sun
-        Star sun = new Star(
-                "Sun",
-                1.989e30, // mass in kg
-                696340, // radius in km
-                new Vector3D(0, 0, 0),
-                new Vector3D(0, 0, 0),
-                1.0, // luminosity (1 solar luminosity)
-                5778, // surface temperature in K
-                27.0, // rotation period in days
-                new Vector3D(0, 0, 1));
+// // Create the Sun
+// Star sun = new Star(
+// "Sun",
+// 1.989e30, // mass in kg
+// 696340, // radius in km
+// new Vector3D(0, 0, 0),
+// new Vector3D(0, 0, 0),
+// 1.0, // luminosity (1 solar luminosity)
+// 5778, // surface temperature in K
+// 27.0, // rotation period in days
+// new Vector3D(0, 0, 1));
 
-        // Create Earth
-        Planet earth = new Planet(
-                "Earth",
-                5.972e24, // mass in kg
-                6371, // radius in km
-                new Vector3D(149.6e6, 0, 0), // position (at 1 AU)
-                new Vector3D(0, 29.78, 0), // velocity in km/s
-                sun, // parent body
-                365.26, // orbital period in days
-                0.0167, // eccentricity
-                1.0, // rotation period in days
-                new Vector3D(0, 0, 1),
-                288, // surface temperature in K
-                1.0, // atmospheric pressure in atm
-                List.of("Nitrogen", "Oxygen", "Argon"),
-                true // has water
-        );
+// // Create Earth
+// Planet earth = new Planet(
+// "Earth",
+// 5.972e24, // mass in kg
+// 6371, // radius in km
+// new Vector3D(149.6e6, 0, 0), // position (at 1 AU)
+// new Vector3D(0, 29.78, 0), // velocity in km/s
+// sun, // parent body
+// 365.26, // orbital period in days
+// 0.0167, // eccentricity
+// 1.0, // rotation period in days
+// new Vector3D(0, 0, 1),
+// 288, // surface temperature in K
+// 1.0, // atmospheric pressure in atm
+// List.of("Nitrogen", "Oxygen", "Argon"),
+// true // has water
+// );
 
-        // Add bodies to simulation
-        simulation.addBody(sun);
-        simulation.addBody(earth);
+// // Add bodies to simulation
+// simulation.addBody(sun);
+// simulation.addBody(earth);
 
-        // Run simulation
-        System.out.println("=== Celestial Body Simulation ===");
-        simulation.simulateGravitationalInteractions();
-        System.out.println("\n=== Checking for Habitable Planets ===");
-        simulation.printHabitablePlanets();
-    }
-}
+// // Run simulation
+// System.out.println("=== Celestial Body Simulation ===");
+// simulation.simulateGravitationalInteractions();
+// System.out.println("\n=== Checking for Habitable Planets ===");
+// simulation.printHabitablePlanets();
+// }
+// }
