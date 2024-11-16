@@ -6,7 +6,7 @@ public class SolarSystemDemo {
     public static void main(String[] args) {
         // Create a simple solar system simulation
         CelestialSimulation simulation = new CelestialSimulation();
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         // Prepopulate simulation with Sun and Earth
         Star sun = new Star(
@@ -52,13 +52,13 @@ public class SolarSystemDemo {
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            int choice = sc.nextInt();
+            sc.nextLine();
 
             switch (choice) {
-                case 1 -> addCelestialBody(simulation, scanner);
-                case 2 -> removeCelestialBody(simulation, scanner);
-                case 3 -> selectCelestialBody(simulation, scanner);
+                case 1 -> addCelestialBody(simulation, sc);
+                case 2 -> removeCelestialBody(simulation, sc);
+                case 3 -> selectCelestialBody(simulation, sc);
                 case 4 -> simulation.printAllBodies();
                 case 5 -> simulation.simulateGravitationalInteractions();
                 case 6 -> simulation.printHabitablePlanets();
@@ -68,24 +68,24 @@ public class SolarSystemDemo {
         }
 
         System.out.println("Exiting the simulation. Goodbye!");
-        scanner.close();
+        sc.close();
     }
 
-    private static void addCelestialBody(CelestialSimulation simulation, Scanner scanner) {
+    private static void addCelestialBody(CelestialSimulation simulation, Scanner sc) {
         System.out.print("Enter the name of the celestial body: ");
-        String name = scanner.nextLine();
+        String name = sc.nextLine();
 
         System.out.print("Enter mass (in kg): ");
-        double mass = scanner.nextDouble();
+        double mass = sc.nextDouble();
 
         System.out.print("Enter radius (in km): ");
-        double radius = scanner.nextDouble();
+        double radius = sc.nextDouble();
 
         System.out.print("Enter position (x y z in km): ");
-        Vector3D position = new Vector3D(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
+        Vector3D position = new Vector3D(sc.nextDouble(), sc.nextDouble(), sc.nextDouble());
 
         System.out.print("Enter velocity (x y z in km/s): ");
-        Vector3D velocity = new Vector3D(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
+        Vector3D velocity = new Vector3D(sc.nextDouble(), sc.nextDouble(), sc.nextDouble());
 
         // For simplicity, assume a generic celestial body for now
         CelestialBody newBody = new AbstractCelestialBody(name, mass, radius, position, velocity) {
@@ -95,9 +95,9 @@ public class SolarSystemDemo {
         System.out.println("Celestial body added successfully.");
     }
 
-    private static void removeCelestialBody(CelestialSimulation simulation, Scanner scanner) {
+    private static void removeCelestialBody(CelestialSimulation simulation, Scanner sc) {
         System.out.print("Enter the name of the celestial body to remove: ");
-        String name = scanner.nextLine();
+        String name = sc.nextLine();
 
         if (simulation.removeBodyByName(name)) {
             System.out.println("Celestial body removed successfully.");
@@ -106,9 +106,9 @@ public class SolarSystemDemo {
         }
     }
 
-    private static void selectCelestialBody(CelestialSimulation simulation, Scanner scanner) {
+    private static void selectCelestialBody(CelestialSimulation simulation, Scanner sc) {
         System.out.print("Enter the name of the celestial body to select: ");
-        String name = scanner.nextLine();
+        String name = sc.nextLine();
 
         CelestialBody body = simulation.getBodyByName(name);
         if (body != null) {
