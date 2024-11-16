@@ -63,7 +63,7 @@ interface Habitable extends CelestialBody {
 
 // Helper class for 3D vector operations
 class Vector3D {
-    private double x, y, z;
+    private final double x, y, z;
 
     public Vector3D(double x, double y, double z) {
         this.x = x;
@@ -145,10 +145,10 @@ abstract class AbstractCelestialBody implements CelestialBody {
 
 // Implementation classes for different celestial bodies
 class Star extends AbstractCelestialBody implements Rotatable {
-    private double luminosity; // in solar luminosities
-    private double temperature; // in Kelvin
-    private double rotationPeriod;
-    private Vector3D axisOfRotation;
+    private final double luminosity; // in solar luminosities
+    private final double temperature; // in Kelvin
+    private final double rotationPeriod;
+    private final Vector3D axisOfRotation;
 
     public Star(String name, double mass, double radius, Vector3D position,
             Vector3D velocity, double luminosity, double temperature,
@@ -181,15 +181,15 @@ class Star extends AbstractCelestialBody implements Rotatable {
 
 class Planet extends AbstractCelestialBody
         implements Orbital, Rotatable, Habitable {
-    private CelestialBody parentStar;
-    private double orbitalPeriod;
-    private double eccentricity;
-    private double rotationPeriod;
-    private Vector3D axisOfRotation;
-    private double surfaceTemperature;
-    private double atmosphericPressure;
-    private List<String> atmosphericComposition;
-    private boolean hasWater;
+    private final CelestialBody parentStar;
+    private final double orbitalPeriod;
+    private final double eccentricity;
+    private final double rotationPeriod;
+    private final Vector3D axisOfRotation;
+    private final double surfaceTemperature;
+    private final double atmosphericPressure;
+    private final List<String> atmosphericComposition;
+    private final boolean hasWater;
 
     public Planet(String name, double mass, double radius, Vector3D position,
             Vector3D velocity, CelestialBody parentStar, double orbitalPeriod,
@@ -259,7 +259,7 @@ class Planet extends AbstractCelestialBody
 
 // Simulation class to demonstrate the system
 class CelestialSimulation {
-    private List<CelestialBody> bodies = new ArrayList<>();
+    private final List<CelestialBody> bodies = new ArrayList<>();
 
     public void addBody(CelestialBody body) {
         bodies.add(body);
