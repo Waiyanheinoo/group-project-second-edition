@@ -1,4 +1,4 @@
-```mermaid
+````mermaid
 classDiagram
     class CelestialBody {
         <<interface>>
@@ -58,3 +58,4 @@ classDiagram
     SolarSystemSimulation ..> Planet: uses
     SolarSystemSimulation ..> Star: uses
     ```
+````

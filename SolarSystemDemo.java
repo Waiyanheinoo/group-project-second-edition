@@ -1,6 +1,7 @@
 import java.util.*;
 
 // Core interfaces for celestial bodies
+// testing 1-2-3
 interface CelestialBody {
     String getName();
 
