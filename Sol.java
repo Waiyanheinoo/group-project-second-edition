@@ -14,8 +14,8 @@ public class sol {
 
         void move(double deltaTime);
 
-        void displayInfo(); // Default method to display basic info
-
+        
+        void displayInfo();
         default void detailsInfo() {
             System.out.println("\n=== Basic Info ===");
             System.out.println(" * Name: " + getName());
@@ -303,7 +303,7 @@ public class sol {
                         showBodiesByType(choice);
                         break;
                     case 5:
-                        System.exit(0);
+                        System.exit(0); // it just quits the script
                         break;
                     default:
                         System.out.println("\n * Invalid choice! Please try again.");
@@ -336,7 +336,7 @@ public class sol {
                     type = "Star";
                     break;
                 default:
-                    System.out.println("Invalid type!");
+                    System.out.println("\n * Invalid type!");
                     return;
             }
 
@@ -370,7 +370,7 @@ public class sol {
                 if (choice == 4) {
                     moveCelestialBody(body);
                 } else {
-                    displayBodyDetailsMenu(body, typeIndex); // Pass the int instead of the String
+                    displayBodyDetailsMenu(body, typeIndex); 
                 }
 
             } else {
@@ -380,18 +380,17 @@ public class sol {
 
         public static void moveCelestialBody(CelestialBody body) {
             // Check if the body can move (Planet or Moon in this case)
-            if (body instanceof Planet || body instanceof Moon) {
+            if (body instanceof Planet || body instanceof Moon) { // instanceof checks if the class (Planet or Moon) implements the interface('body' in this case) or is an instance of the class.
                 System.out.println("\nEnter the time interval for the move (in days): ");
                 double deltaTime = scanner.nextDouble(); // Time in days for movement
                 scanner.nextLine(); // Clear buffer
 
-                if (body instanceof Planet) {
+                if (body instanceof Planet) { // If it is a planet.
                     Planet planet = (Planet) body;
-                    System.out.println(
-                            "\n * Before move: " + planet.getName() + " at " + planet.getAngle() + " radians.");
-                    planet.move(deltaTime);
+                    System.out.println("\n * Before move: " + planet.getName() + " at " + planet.getAngle() + " radians.");
+                    planet.move(deltaTime); // this method just moves the angle base on time
                     System.out.println(" * After move: " + planet.getName() + " at " + planet.getAngle() + " radians.");
-                } else if (body instanceof Moon) {
+                } else if (body instanceof Moon) { // If it is a moon.
                     Moon moon = (Moon) body;
                     System.out.println("\n * Before move: " + moon.getName() + " at " + moon.getAngle() + " radians.");
                     moon.move(deltaTime);
@@ -568,14 +567,30 @@ public class sol {
         }
 
         public static void removeBody(String type, String name) {
-            List<CelestialBody> bodies = celestialBodies.get(type);
-            if (bodies != null) {
-                bodies.removeIf(body -> body.getName().equalsIgnoreCase(name));
-                System.out.println(type + " removed successfully.");
+            List<CelestialBody> bodies = celestialBodies.get(type); // This just gets all the bodies from that type
+            if (bodies != null) { // If there is one
+                boolean removed = false;  // To track if a body was removed
+                Iterator<CelestialBody> iterator = bodies.iterator();
+                
+                while (iterator.hasNext()) { // loop throught that type of body
+                    CelestialBody body = iterator.next(); // Get the next body from the list
+                    if (body.getName().equalsIgnoreCase(name)) { // If the current body in the interator matchs the body we want to remove
+                        iterator.remove();  // Removes the body 
+                        removed = true;  // Mark as removed
+                        break;  // Stop once the body is removed (you can remove all matching bodies if you don't use 'break')
+                    }
+                }
+                
+                if (removed) {
+                    System.out.println(type + " removed successfully.");
+                } else {
+                    System.out.println("Body with name " + name + " not found.");
+                }
             } else {
                 System.out.println(type + " not found.");
             }
         }
+        
 
         public static void displayBodyDetailsMenu(CelestialBody body, int type) {
             System.out.println("\nWhich detail would you like to see?");
