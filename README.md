@@ -13,58 +13,88 @@ This project simulates a simple solar system with celestial bodies using object-
 classDiagram
     class CelestialBody {
         <<interface>>
-        +updatePosition(time: double) void
-        +getX() double
-        +getY() double
-        +getMass() double
         +getName() String
+        +getMass() double
+        +getRadius() double
+        +getOrbitalRadius() double
+        +move(deltaTime: double) void
+        +displayInfo() void
+        +detailsInfo()$ void
     }
 
-    class Orbitable {
-        <<interface>>
-        +setOrbitCenter(center: CelestialBody) void
-        +getOrbitalPeriod() double
-        +getOrbitRadius() double
+    class Galaxy {
+        -name: String
+        -mass: double
+        -radius: double
+        -galaxyType: String
+        -estimatedStars: long
+        +Galaxy(name: String, mass: double, radius: double, galaxyType: String, estimatedStars: long)
+        +getGalaxyType() String
+        +getEstimateStars() long
     }
 
     class Planet {
         -name: String
         -mass: double
-        -x: double
-        -y: double
+        -radius: double
+        -orbitalRadius: double
         -orbitalPeriod: double
-        -orbitRadius: double
-        -centerBody: CelestialBody
-        +Planet(name: String, mass: double, orbitalPeriod: double, orbitRadius: double)
-        +updatePosition(time: double) void
-        +setOrbitCenter(center: CelestialBody) void
-        +getX() double
-        +getY() double
-        +getMass() double
-        +getName() String
+        -angle: double
+        +Planet(name: String, mass: double, radius: double, orbitalRadius: double, orbitalPeriod: double)
+        +getAngle() double
+    }
+
+    class Moon {
+        -name: String
+        -mass: double
+        -radius: double
+        -orbitalRadius: double
+        -orbitalPeriod: double
+        -angle: double
+        +Moon(name: String, mass: double, radius: double, orbitalRadius: double, orbitalPeriod: double)
+        +getAngle() double
         +getOrbitalPeriod() double
-        +getOrbitRadius() double
     }
 
     class Star {
         -name: String
         -mass: double
-        -x: double
-        -y: double
-        +Star(name: String, mass: double, x: double, y: double)
-        +updatePosition(time: double) void
-        +getX() double
-        +getY() double
-        +getMass() double
-        +getName() String
+        -radius: double
+        -luminosity: double
+        +Star(name: String, mass: double, radius: double, luminosity: double)
+        +getLuminosity() double
     }
 
-    class SolarSystemSimulation {
+    class Main {
+        -celestialBodies: Map~String, List~CelestialBody~~
+        -scanner: Scanner
         +main(args: String[]) void
+        +initializeBodies() void
+        +addBody(body: CelestialBody) void
+        +showMenu() void
+        +showBodiesByType(choice: int) void
+        +moveCelestialBody(body: CelestialBody) void
+        +addCelestialBodyMenu() void
+        +removeCelestialBodyMenu() void
+        +addPlanet() void
+        +removePlanet() void
+        +addMoon() void
+        +removeMoon() void
+        +addGalaxy() void
+        +removeGalaxy() void
+        +addStar() void
+        +removeStar() void
+        +removeBody(type: String, name: String) void
+        +displayBodyDetailsMenu(body: CelestialBody, type: int) void
     }
 
-    CelestialBody <|.. Star: implements
-    CelestialBody <|.. Planet: implements
-    Orbitable <|.. Planet: implements
-    SolarSystemSimulation ..> Planet: uses
-    SolarSystemSimulation ..> Star: uses
+    CelestialBody <|.. Galaxy
+    CelestialBody <|.. Planet
+    CelestialBody <|.. Moon
+    CelestialBody <|.. Star
+    Main ..> CelestialBody : uses
+    Main "1" *-- "*" Galaxy : manages
+    Main "1" *-- "*" Planet : manages
+    Main "1" *-- "*" Moon : manages
+    Main "1" *-- "*" Star : manages
+```
