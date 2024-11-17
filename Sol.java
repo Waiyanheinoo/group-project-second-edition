@@ -5,10 +5,15 @@ public class sol {
     // Base interface for any celestial body
     public interface CelestialBody {
         String getName();
+
         double getMass();
+
         double getRadius();
+
         double getOrbitalRadius();
+
         void move(double deltaTime);
+
         void displayInfo(); // Default method to display basic info
 
         default void detailsInfo() {
@@ -36,17 +41,36 @@ public class sol {
         }
 
         @Override
-        public String getName() { return name; }
+        public String getName() {
+            return name;
+        }
+
         @Override
-        public double getMass() { return mass; }
+        public double getMass() {
+            return mass;
+        }
+
         @Override
-        public double getRadius() { return radius; }
+        public double getRadius() {
+            return radius;
+        }
+
         @Override
-        public double getOrbitalRadius() { return 0; }
-        public String getGalaxyType(){return galaxyType;}
-        public long getEstimateStars(){return estimatedStars;}
+        public double getOrbitalRadius() {
+            return 0;
+        }
+
+        public String getGalaxyType() {
+            return galaxyType;
+        }
+
+        public long getEstimateStars() {
+            return estimatedStars;
+        }
+
         @Override
-        public void move(double deltaTime) { }
+        public void move(double deltaTime) {
+        }
 
         @Override
         public void displayInfo() {
@@ -73,21 +97,37 @@ public class sol {
             this.orbitalPeriod = orbitalPeriod;
             this.angle = 0;
         }
-        public double getAngle(){return angle;}
+
+        public double getAngle() {
+            return angle;
+        }
+
         @Override
-        public String getName() { return name; }
+        public String getName() {
+            return name;
+        }
+
         @Override
-        public double getMass() { return mass; }
+        public double getMass() {
+            return mass;
+        }
+
         @Override
-        public double getRadius() { return radius; }
+        public double getRadius() {
+            return radius;
+        }
+
         @Override
-        public double getOrbitalRadius() { return orbitalRadius; }
+        public double getOrbitalRadius() {
+            return orbitalRadius;
+        }
 
         @Override
         public void move(double deltaTime) {
             double angularVelocity = 2 * Math.PI / orbitalPeriod;
             angle += angularVelocity * deltaTime;
-            if (angle > 2 * Math.PI) angle -= 2 * Math.PI;
+            if (angle > 2 * Math.PI)
+                angle -= 2 * Math.PI;
         }
 
         @Override
@@ -116,23 +156,41 @@ public class sol {
             this.orbitalPeriod = orbitalPeriod;
             this.angle = 0;
         }
-        public double getAngle(){return angle;}
+
+        public double getAngle() {
+            return angle;
+        }
 
         @Override
-        public String getName() { return name; }
+        public String getName() {
+            return name;
+        }
+
         @Override
-        public double getMass() { return mass; }
+        public double getMass() {
+            return mass;
+        }
+
         @Override
-        public double getRadius() { return radius; }
+        public double getRadius() {
+            return radius;
+        }
+
         @Override
-        public double getOrbitalRadius() { return orbitalRadius; }
-        public double getOrbitalPeriod() {return orbitalPeriod; }
+        public double getOrbitalRadius() {
+            return orbitalRadius;
+        }
+
+        public double getOrbitalPeriod() {
+            return orbitalPeriod;
+        }
 
         @Override
         public void move(double deltaTime) {
             double angularVelocity = 2 * Math.PI / orbitalPeriod;
             angle += angularVelocity * deltaTime;
-            if (angle > 2 * Math.PI) angle -= 2 * Math.PI;
+            if (angle > 2 * Math.PI)
+                angle -= 2 * Math.PI;
         }
 
         @Override
@@ -159,16 +217,32 @@ public class sol {
         }
 
         @Override
-        public String getName() { return name; }
+        public String getName() {
+            return name;
+        }
+
         @Override
-        public double getMass() { return mass; }
+        public double getMass() {
+            return mass;
+        }
+
         @Override
-        public double getRadius() { return radius; }
+        public double getRadius() {
+            return radius;
+        }
+
         @Override
-        public double getOrbitalRadius() { return 0; } // Stars do not orbit anything in this model
-        public double getLuminosity() {return luminosity;}
+        public double getOrbitalRadius() {
+            return 0;
+        } // Stars do not orbit anything in this model
+
+        public double getLuminosity() {
+            return luminosity;
+        }
+
         @Override
-        public void move(double deltaTime) { }
+        public void move(double deltaTime) {
+        }
 
         @Override
         public void displayInfo() {
@@ -213,15 +287,26 @@ public class sol {
                 System.out.println("5. Exit");
                 System.out.print("Choose an option: ");
                 int choice = scanner.nextInt();
-                scanner.nextLine();  // Clear buffer
+                scanner.nextLine(); // Clear buffer
 
-                switch (choice) {   
-                    case 1: showBodiesByType(choice); break;
-                    case 2: addCelestialBodyMenu(); break;
-                    case 3: removeCelestialBodyMenu(); break;
-                    case 4: showBodiesByType(choice); break;
-                    case 5: System.exit(0); break;
-                    default: System.out.println("\n * Invalid choice! Please try again.");
+                switch (choice) {
+                    case 1:
+                        showBodiesByType(choice);
+                        break;
+                    case 2:
+                        addCelestialBodyMenu();
+                        break;
+                    case 3:
+                        removeCelestialBodyMenu();
+                        break;
+                    case 4:
+                        showBodiesByType(choice);
+                        break;
+                    case 5:
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("\n * Invalid choice! Please try again.");
                 }
             }
         }
@@ -235,62 +320,75 @@ public class sol {
             System.out.print("Enter the number of the body type: ");
             int typeChoice = scanner.nextInt();
             scanner.nextLine(); // Clear buffer
-        
+
             String type = "";
             switch (typeChoice) {
-                case 1: type = "Planet"; break;
-                case 2: type = "Moon"; break;
-                case 3: type = "Galaxy"; break;
-                case 4: type = "Star"; break;
-                default: System.out.println("Invalid type!"); return;
+                case 1:
+                    type = "Planet";
+                    break;
+                case 2:
+                    type = "Moon";
+                    break;
+                case 3:
+                    type = "Galaxy";
+                    break;
+                case 4:
+                    type = "Star";
+                    break;
+                default:
+                    System.out.println("Invalid type!");
+                    return;
             }
-        
+
             System.out.println("\n" + type + "s:");
             List<CelestialBody> bodies = celestialBodies.get(type);
             for (int i = 0; i < bodies.size(); i++) {
                 System.out.println((i + 1) + ". " + bodies.get(i).getName());
             }
-            if(choice == 4){
+            if (choice == 4) {
                 System.out.print("Select a " + type + " to move");
-            }
-            else{
+            } else {
                 System.out.print("Select a " + type + " to view details: ");
             }
-            
-            
+
             int bodyChoice = scanner.nextInt();
             scanner.nextLine(); // Clear buffer
-        
+
             if (bodyChoice > 0 && bodyChoice <= bodies.size()) {
                 CelestialBody body = bodies.get(bodyChoice - 1);
-        
+
                 // Here we need to pass the correct int for the celestial body type
                 int typeIndex = 0;
-                if (typeChoice == 1) typeIndex = 1;  // Planet
-                else if (typeChoice == 2) typeIndex = 2;  // Moon
-                else if (typeChoice == 3) typeIndex = 3;  // Galaxy
-                else if (typeChoice == 4) typeIndex = 4;  // Star
-                if(choice == 4){
+                if (typeChoice == 1)
+                    typeIndex = 1; // Planet
+                else if (typeChoice == 2)
+                    typeIndex = 2; // Moon
+                else if (typeChoice == 3)
+                    typeIndex = 3; // Galaxy
+                else if (typeChoice == 4)
+                    typeIndex = 4; // Star
+                if (choice == 4) {
                     moveCelestialBody(body);
-                }else{
-                    displayBodyDetailsMenu(body, typeIndex);  // Pass the int instead of the String
+                } else {
+                    displayBodyDetailsMenu(body, typeIndex); // Pass the int instead of the String
                 }
-                
-                
+
             } else {
                 System.out.println("\n * Invalid choice!");
             }
         }
+
         public static void moveCelestialBody(CelestialBody body) {
             // Check if the body can move (Planet or Moon in this case)
             if (body instanceof Planet || body instanceof Moon) {
                 System.out.println("\nEnter the time interval for the move (in days): ");
                 double deltaTime = scanner.nextDouble(); // Time in days for movement
                 scanner.nextLine(); // Clear buffer
-        
+
                 if (body instanceof Planet) {
                     Planet planet = (Planet) body;
-                    System.out.println("\n * Before move: " + planet.getName() + " at " + planet.getAngle() + " radians.");
+                    System.out.println(
+                            "\n * Before move: " + planet.getName() + " at " + planet.getAngle() + " radians.");
                     planet.move(deltaTime);
                     System.out.println(" * After move: " + planet.getName() + " at " + planet.getAngle() + " radians.");
                 } else if (body instanceof Moon) {
@@ -303,8 +401,6 @@ public class sol {
                 System.out.println("\n * This body cannot be moved.");
             }
         }
-        
-        
 
         public static void addCelestialBodyMenu() {
             System.out.println("\nAdd a New Celestial Body: ");
@@ -317,11 +413,21 @@ public class sol {
             scanner.nextLine(); // Clear buffer
 
             switch (choice) {
-                case 1: addPlanet(); break;
-                case 2: addMoon(); break;
-                case 3: addGalaxy(); break;
-                case 4: addStar(); break;
-                default: System.out.println("\n * Invalid choice!"); break;
+                case 1:
+                    addPlanet();
+                    break;
+                case 2:
+                    addMoon();
+                    break;
+                case 3:
+                    addGalaxy();
+                    break;
+                case 4:
+                    addStar();
+                    break;
+                default:
+                    System.out.println("\n * Invalid choice!");
+                    break;
             }
         }
 
@@ -336,11 +442,21 @@ public class sol {
             scanner.nextLine(); // Clear buffer
 
             switch (choice) {
-                case 1: removePlanet(); break;
-                case 2: removeMoon(); break;
-                case 3: removeGalaxy(); break;
-                case 4: removeStar(); break;
-                default: System.out.println("\n * Invalid choice!"); break;
+                case 1:
+                    removePlanet();
+                    break;
+                case 2:
+                    removeMoon();
+                    break;
+                case 3:
+                    removeGalaxy();
+                    break;
+                case 4:
+                    removeStar();
+                    break;
+                default:
+                    System.out.println("\n * Invalid choice!");
+                    break;
             }
         }
 
@@ -467,9 +583,7 @@ public class sol {
             System.out.println("2. Mass");
             System.out.println("3. Radius");
             System.out.println("4. Orbital Radius");
-            
-            
-        
+
             // Add additional options based on body type
             if (type == 1) {
                 // No unique property, so nothing additional here
@@ -479,18 +593,25 @@ public class sol {
             } else if (type == 4) {
                 System.out.println("5. Luminosity");
             }
-            
-        
+
             System.out.print("Enter the number of your choice: ");
             int detailChoice = scanner.nextInt();
             scanner.nextLine(); // Clear buffer
-        
+
             switch (detailChoice) {
-                case 2: System.out.println("\n * Mass: " + body.getMass() + " kg"); break;
-                case 3: System.out.println("\n * Radius: " + body.getRadius() + " km"); break;
-                case 4: System.out.println("\n * Orbital Radius: " + body.getOrbitalRadius() + " km"); break;
-                case 1: body.displayInfo(); break;
-                case 5: 
+                case 2:
+                    System.out.println("\n * Mass: " + body.getMass() + " kg");
+                    break;
+                case 3:
+                    System.out.println("\n * Radius: " + body.getRadius() + " km");
+                    break;
+                case 4:
+                    System.out.println("\n * Orbital Radius: " + body.getOrbitalRadius() + " km");
+                    break;
+                case 1:
+                    body.displayInfo();
+                    break;
+                case 5:
                     if (type == 3) {
                         System.out.println("\n * Galaxy Type: " + ((Galaxy) body).getGalaxyType());
                     } else if (type == 4) {
@@ -499,16 +620,18 @@ public class sol {
                         System.out.println("\n * Invalid choice!");
                     }
                     break;
-                case 6: 
+                case 6:
                     if (type == 3) {
                         System.out.println("\n * Estimated Stars: " + ((Galaxy) body).getEstimateStars());
                     } else {
                         System.out.println("\n * Invalid choice!");
                     }
                     break;
-                default: System.out.println("\n * Invalid choice!"); break;
+                default:
+                    System.out.println("\n * Invalid choice!");
+                    break;
             }
-        
+
         }
     }
 }
