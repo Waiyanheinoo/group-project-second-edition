@@ -2,7 +2,7 @@ package Collection;
 import java.util.*;
 
 public class SolarSystemSimMain {
-    // Main class to simulate celestial bodies and their interactions
+    
     
         private static Map<String, List<CelestialBody>> celestialBodies = new HashMap<>();
         private static Scanner scanner = new Scanner(System.in);
@@ -10,52 +10,6 @@ public class SolarSystemSimMain {
         public static void main(String[] args) {
             initializeBodies();
             showMenu();
-        }
-
-        public static void initializeBodies() {
-            // Initialize some celestial bodies
-            addBody(new Planet("Earth", 5.972e24, 6371, 150000000, 365.25));
-            addBody(new Moon("Moon", 7.35e22, 1737, 384400, 27.3));
-            addBody(new Planet("Mars", 6.417e23, 3389, 227900000, 687));
-            addBody(new Galaxy("Milky Way", 1.5e12, 100000, "Spiral", 100000000000L));
-            addBody(new Galaxy("Andromeda", 1.23e12, 220000, "Spiral", 1000000000000L));
-            addBody(new Star("Sun", 1.989e30, 696340, 1));
-        
-            addBody(new Planet("Mercury", 3.285e23, 2439, 57900000, 88));
-            addBody(new Planet("Venus", 4.867e24, 6051, 108200000, 224.7));
-            addBody(new Planet("Jupiter", 1.898e27, 69911, 778500000, 4332.6));
-            addBody(new Planet("Saturn", 5.683e26, 58232, 1434000000, 10759));
-            addBody(new Planet("Uranus", 8.681e25, 25362, 287100000, 30687));
-            addBody(new Planet("Neptune", 1.024e26, 24622, 449500000, 60190));
-        
-            addBody(new Moon("Europa", 4.8e22, 1560, 670900, 3.5));
-            addBody(new Moon("Titan", 1.345e23, 2575, 1221870, 15.945));
-            addBody(new Moon("Io", 8.93e22, 1821, 421700, 1.769));
-            addBody(new Moon("Ganymede", 1.4819e23, 2634, 1070400, 7.155));
-            addBody(new Moon("Callisto", 1.0759e23, 2410, 1882700, 16.69));
-        
-            addBody(new Star("Proxima Centauri", 2.446e29, 69620, 4.25));
-            addBody(new Star("Alpha Centauri A", 2.188e30, 695508, 4.37));
-            addBody(new Star("Alpha Centauri B", 1.804e30, 602000, 4.37));
-            addBody(new Star("Sirius A", 4.017e30, 1189640, 8.6));
-            addBody(new Star("Vega", 2.135e30, 1218000, 25));
-        
-            addBody(new Galaxy("Triangulum Galaxy", 5.0e11, 60000, "Spiral", 40000000000L));
-            addBody(new Galaxy("Whirlpool Galaxy", 1.6e11, 76000, "Spiral", 150000000000L));
-            addBody(new Galaxy("Sombrero Galaxy", 8.0e11, 49000, "Spiral", 100000000000L));
-            addBody(new Galaxy("Large Magellanic Cloud", 1.5e10, 14000, "Irregular", 30000000000L));
-            addBody(new Galaxy("Small Magellanic Cloud", 5.0e9, 7000, "Irregular", 15000000000L));
-        
-            addBody(new Planet("Kepler-22b", 2.4e25, 12000, 600000000, 290));
-            addBody(new Planet("Gliese 581g", 4.7e24, 7200, 20000000, 37));
-            addBody(new Planet("HD 209458 b", 1.1e27, 71492, 6800000, 3.525));
-        
-            addBody(new Star("Betelgeuse", 1.31e31, 764000000, 642.5));
-            addBody(new Moon("Charon", 1.586e21, 606, 19591, 6.387));
-            addBody(new Planet("Pluto", 1.309e22, 1188, 5906440628L, 90560));
-        
-            addBody(new Galaxy("NGC 1300", 8.0e11, 120000, "Barred Spiral", 100000000000L));
-            addBody(new Star("Rigel", 2.1e31, 780000000, 863));
         }
         
 
@@ -446,6 +400,51 @@ public class SolarSystemSimMain {
                     break;
             }
 
+        }
+        public static void initializeBodies() {
+            // Initialize some celestial bodies
+            addBody(new Planet("Earth", 5.972e24, 6371, 150000000, 365.25));
+            addBody(new Moon("Moon", 7.35e22, 1737, 384400, 27.3));
+            addBody(new Planet("Mars", 6.417e23, 3389, 227900000, 687));
+            addBody(new Galaxy("Milky Way", 1.5e12, 100000, "Spiral", 100000000000L));
+            addBody(new Galaxy("Andromeda", 1.23e12, 220000, "Spiral", 1000000000000L));
+            addBody(new Star("Sun", 1.989e30, 696340, 1));
+        
+            addBody(new Planet("Mercury", 3.285e23, 2439, 57900000, 88));
+            addBody(new Planet("Venus", 4.867e24, 6051, 108200000, 224.7));
+            addBody(new Planet("Jupiter", 1.898e27, 69911, 778500000, 4332.6));
+            addBody(new Planet("Saturn", 5.683e26, 58232, 1434000000, 10759));
+            addBody(new Planet("Uranus", 8.681e25, 25362, 287100000, 30687));
+            addBody(new Planet("Neptune", 1.024e26, 24622, 449500000, 60190));
+        
+            addBody(new Moon("Europa", 4.8e22, 1560, 670900, 3.5));
+            addBody(new Moon("Titan", 1.345e23, 2575, 1221870, 15.945));
+            addBody(new Moon("Io", 8.93e22, 1821, 421700, 1.769));
+            addBody(new Moon("Ganymede", 1.4819e23, 2634, 1070400, 7.155));
+            addBody(new Moon("Callisto", 1.0759e23, 2410, 1882700, 16.69));
+        
+            addBody(new Star("Proxima Centauri", 2.446e29, 69620, 4.25));
+            addBody(new Star("Alpha Centauri A", 2.188e30, 695508, 4.37));
+            addBody(new Star("Alpha Centauri B", 1.804e30, 602000, 4.37));
+            addBody(new Star("Sirius A", 4.017e30, 1189640, 8.6));
+            addBody(new Star("Vega", 2.135e30, 1218000, 25));
+        
+            addBody(new Galaxy("Triangulum Galaxy", 5.0e11, 60000, "Spiral", 40000000000L));
+            addBody(new Galaxy("Whirlpool Galaxy", 1.6e11, 76000, "Spiral", 150000000000L));
+            addBody(new Galaxy("Sombrero Galaxy", 8.0e11, 49000, "Spiral", 100000000000L));
+            addBody(new Galaxy("Large Magellanic Cloud", 1.5e10, 14000, "Irregular", 30000000000L));
+            addBody(new Galaxy("Small Magellanic Cloud", 5.0e9, 7000, "Irregular", 15000000000L));
+        
+            addBody(new Planet("Kepler-22b", 2.4e25, 12000, 600000000, 290));
+            addBody(new Planet("Gliese 581g", 4.7e24, 7200, 20000000, 37));
+            addBody(new Planet("HD 209458 b", 1.1e27, 71492, 6800000, 3.525));
+        
+            addBody(new Star("Betelgeuse", 1.31e31, 764000000, 642.5));
+            addBody(new Moon("Charon", 1.586e21, 606, 19591, 6.387));
+            addBody(new Planet("Pluto", 1.309e22, 1188, 5906440628L, 90560));
+        
+            addBody(new Galaxy("NGC 1300", 8.0e11, 120000, "Barred Spiral", 100000000000L));
+            addBody(new Star("Rigel", 2.1e31, 780000000, 863));
         }
     }
 
