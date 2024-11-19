@@ -3,7 +3,7 @@ import java.util.*;
 
 public class SolarSystemSimMain {
     // Main class to simulate celestial bodies and their interactions
-    public static class Main {
+    
         private static Map<String, List<CelestialBody>> celestialBodies = new HashMap<>();
         private static Scanner scanner = new Scanner(System.in);
 
@@ -448,4 +448,4 @@ public class SolarSystemSimMain {
 
         }
     }
-}
+
