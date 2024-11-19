@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class sol {
+public class Sol {
 
     // Base interface for any celestial body
     public interface CelestialBody {
